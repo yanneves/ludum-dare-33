@@ -1,0 +1,23 @@
+{
+  "name": "ludum-dare-33",
+  "version": "0.0.0",
+  "description": "Ludum Dare #LDJAM 33 Game Submission",
+  "main": " ",
+  "scripts": {
+    "start": "node node_modules/.bin/http-server -p 51000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanneves/ludum-dare-33.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yanneves/ludum-dare-33/issues"
+  },
+  "homepage": "https://github.com/yanneves/ludum-dare-33#readme",
+  "dependencies": {
+    "http-server": "^0.8.0"
+  }
+}
