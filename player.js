@@ -18,29 +18,27 @@ pc.script.create('player', function (context) {
     Player.prototype = {
         initialize: function () {
             // start at reset position
-            // this.reset()
+            this.reset()
+
+            // entities
+            this.light = this.entity.findByName('Light')
         },
 
         update: function (dt) {
-            // rotation control
-            if (context.keyboard.isPressed(pc.input.KEY_A)) {
-                this.entity.rigidbody.applyTorqueImpulse(0, 0, this.torque)
-            }
+            var KEY_A_PRESSED = context.keyboard.isPressed(pc.input.KEY_A)
+            var KEY_D_PRESSED = context.keyboard.isPressed(pc.input.KEY_D)
+            var KEY_SPACE_PRESSED = context.keyboard.isPressed(pc.input.KEY_SPACE)
+            var KEY_ENTER_PRESSED = context.keyboard.isPressed(pc.input.KEY_ENTER)
 
-            if (context.keyboard.isPressed(pc.input.KEY_D)) {
-                this.entity.rigidbody.applyTorqueImpulse(0, 0, -this.torque)
-            }
+            // rotation control
+            if (KEY_A_PRESSED || KEY_D_PRESSED)
+                this.entity.rigidbody.applyTorqueImpulse(0, 0, (KEY_A_PRESSED ? +1 : -1) * this.torque)
 
             // thrust control
-            if (context.keyboard.isPressed(pc.input.KEY_SPACE)) {
-                this.thrustVec.copy(this.entity.up).scale(this.thrust)
-                this.entity.rigidbody.applyImpulse(this.thrustVec)
-            }
+            this[(KEY_SPACE_PRESSED ? 'start' : 'stop') + 'Thrust']()
 
             // player rest
-            if (context.keyboard.isPressed(pc.input.KEY_ENTER)) {
-                this.reset()
-            }
+            if (KEY_ENTER_PRESSED) this.reset()
         },
 
         reset: function () {
@@ -50,6 +48,23 @@ pc.script.create('player', function (context) {
             this.entity.rigidbody.syncEntityToBody()
             this.entity.rigidbody.linearVelocity = pc.Vec3.ZERO
             this.entity.rigidbody.angularVelocity = pc.Vec3.ZERO
+        },
+
+        startThrust: function () {
+            this.thrustVec.copy(this.entity.up).scale(this.thrust)
+            this.entity.rigidbody.applyImpulse(this.thrustVec)
+
+            if (!this.thrusting) {
+                this.thrusting = true
+                this.light.enabled = true
+            }
+        },
+
+        stopThrust: function () {
+            if (this.thrusting) {
+                this.thrusting = false
+                this.light.enabled = false
+            }
         }
     }
 
