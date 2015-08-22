@@ -10,7 +10,5 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "hammerjs": "~2.0.4"
-  }
+  "dependencies": {}
 }
