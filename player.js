@@ -27,7 +27,7 @@ pc.script.create('player', function (context) {
 
             if (context.keyboard.isPressed(pc.input.KEY_SPACE)) {
                 this.thrustVec.copy(this.entity.up).scale(this.thrust)
-                this.entity.rigidbody.applyImpulse(this.thrust)
+                this.entity.rigidbody.applyImpulse(this.thrustVec)
             }
         }
     }
