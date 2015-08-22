@@ -4,7 +4,7 @@
   "description": "Ludum Dare #LDJAM 33 Game Submission",
   "main": " ",
   "scripts": {
-    "start": "node_modules/.bin/http-server -p 51000",
+    "start": "node_modules/.bin/http-server -p 51000 -c-1",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
