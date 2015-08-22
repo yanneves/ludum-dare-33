@@ -199,10 +199,6 @@ pc.script.create('camera', function (context) {
         },
 
         update: function (dt) {
-            if (context.keyboard.wasPressed(pc.input.KEY_SPACE)) {
-                this.setBestCameraPositionForModel()
-            }
-
             // implement a delay in camera controls by lerping towards a target
             this.viewPos.lerp(this.viewPos, this.targetViewPos, dt / 0.1)
             this.distance = pc.math.lerp(this.distance, this.targetDistance, dt / 0.2)
