@@ -2,8 +2,8 @@ pc.script.attribute('PLAYER_START_X', 'number', 0)
 pc.script.attribute('PLAYER_START_Y', 'number', 10)
 pc.script.attribute('PLAYER_START_Z', 'number', 0)
 
-pc.script.attribute('thrust', 'number', 350)
-pc.script.attribute('torque', 'number', 40)
+pc.script.attribute('thrust', 'number', 350, { min: 10, max: 1000 })
+pc.script.attribute('torque', 'number', 40, { min: 10, max: 100 })
 
 pc.script.create('player', function (context) {
 
@@ -62,14 +62,14 @@ pc.script.create('player', function (context) {
 
             if (!this.thrusting) {
                 this.thrusting = true
-                this.light.enabled = true
+                // this.light.enabled = true
             }
         },
 
         stopThrust: function () {
             if (this.thrusting) {
                 this.thrusting = false
-                this.light.enabled = false
+                // this.light.enabled = false
             }
         }
     }
