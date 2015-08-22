@@ -1,0 +1,16 @@
+{
+  "name": "ludum-dare-33",
+  "version": "0.0.0",
+  "homepage": "https://github.com/yanneves/ludum-dare-33",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "hammerjs": "~2.0.4"
+  }
+}
