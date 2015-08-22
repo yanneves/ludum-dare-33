@@ -135,9 +135,9 @@ pc.script.create('camera', function (context) {
             if (meshInstances.length > 0) {
                 var aabb = new pc.shape.Aabb()
                 aabb.copy(meshInstances[0].aabb)
-                for (i = 0 i < meshInstances.length i++) {
-                    aabb.add(meshInstances[i].aabb)
-                }
+                meshInstances.forEach(function (meshInstance) {
+                    aabb.add(meshInstance.aabb)
+                })
 
                 var focus = aabb.center
                 var halfHeight = aabb.halfExtents.y
