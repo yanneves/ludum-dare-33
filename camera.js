@@ -25,8 +25,7 @@ pc.script.create('camera', function (context) {
 
         this.transformStarted = false
 
-        // Disabling the context menu stops the browser disabling a menu when
-        // you right-click the page
+        // disabling the context menu stops the browser disabling a menu when you right-click the page
         context.mouse.disableContextMenu()
     }
 
@@ -125,14 +124,13 @@ pc.script.create('camera', function (context) {
             }
 
             var meshInstances = []
-            for (i = 0 i < models.length i++) {
-                var mi = models[i].meshInstances
-                for (j = 0 j < mi.length j++) {
-                    if (!isUnderCamera(mi[j])) {
-                        meshInstances.push(mi[j])
-                    }
-                }
-            }
+            models.forEach(function (model) {
+                var mi = model.meshInstances
+                mi.forEach(function (meshInstance) {
+                    if (!isUnderCamera(meshInstance))
+                        meshInstances.push(meshInstance)
+                })
+            })
 
             if (meshInstances.length > 0) {
                 var aabb = new pc.shape.Aabb()
