@@ -1,9 +1,9 @@
 pc.script.attribute('maxElevation', 'number', 70, {
-    displayName: "Max Elevation"
+    "displayName": "Max Elevation"
 });
 
-pc.script.create("camera", function (context) {
-     
+pc.script.create('camera', function (context) {
+
     var Camera = function (entity) {
         this.entity = entity;
 
@@ -23,7 +23,7 @@ pc.script.create("camera", function (context) {
 
         this.transformStarted = false;
 
-        // Disabling the context menu stops the browser disabling a menu when 
+        // Disabling the context menu stops the browser disabling a menu when
         // you right-click the page
         context.mouse.disableContextMenu();
     };
@@ -50,18 +50,18 @@ pc.script.create("camera", function (context) {
 
             // Pinch zoom
             var cachedTargetDistance;
-            this.hammer.on("transformstart", function (event) {
+            this.hammer.on('transformstart', function (event) {
                 this.transformStarted = true;
                 cachedTargetDistance = this.targetDistance;
 
                 event.preventDefault();
                 this.hammer.options.drag = false;
             }.bind(this));
-            this.hammer.on("transformend", function (event) {
+            this.hammer.on('transformend', function (event) {
                 this.transformStarted = false;
                 this.hammer.options.drag = true;
             }.bind(this));
-            this.hammer.on("transform", function (event) {
+            this.hammer.on('transform', function (event) {
                 if (this.transformStarted) {
                     var gesture = event.gesture;
                     var scale = gesture.scale;
@@ -71,7 +71,7 @@ pc.script.create("camera", function (context) {
 
             // Orbit (1 finger) and pan (2 fingers)
             var cachedX, cachedY;
-            this.hammer.on("dragstart", function (event) {
+            this.hammer.on('dragstart', function (event) {
                 if (!this.transformStarted) {
                     var gesture = event.gesture;
                     var numTouches = (gesture.touches !== undefined) ? gesture.touches.length : 1;
@@ -82,13 +82,13 @@ pc.script.create("camera", function (context) {
                     cachedY = gesture.center.pageY;
                 }
             }.bind(this));
-            this.hammer.on("dragend", function (event) {
+            this.hammer.on('dragend', function (event) {
                 if (this.dragStarted) {
                     this.dragStarted = false;
                     this.panning = false;
                 }
             }.bind(this));
-            this.hammer.on("drag", function (event) {
+            this.hammer.on('drag', function (event) {
                 var gesture = event.gesture;
                 var dx = gesture.center.pageX - cachedX;
                 var dy = gesture.center.pageY - cachedY;
@@ -110,20 +110,20 @@ pc.script.create("camera", function (context) {
 
             // Position the camera somewhere sensible
             var models = context.scene.getModels();
-            
+
             var isUnderCamera = function (mi) {
                 var parent = mi.node.getParent();
-                
+
                 while (parent) {
                     if (parent.camera) {
                         return true;
                     }
                     parent = parent.getParent();
                 }
-                
+
                 return false;
             };
-            
+
             var meshInstances = [];
             for (i = 0; i < models.length; i++) {
                 var mi = models[i].meshInstances;
@@ -150,7 +150,7 @@ pc.script.create("camera", function (context) {
                 this.reset(pc.Vec3.ZERO, 3);
             }
         },
-        
+
         reset: function(target, distance) {
             this.viewPos.copy(target);
             this.targetViewPos.copy(target);
@@ -199,7 +199,7 @@ pc.script.create("camera", function (context) {
                 this.pan(event.dx * -factor, event.dy * factor);
             }
         },
-        
+
         update: function (dt) {
             if (context.keyboard.wasPressed(pc.input.KEY_SPACE)) {
                 this.setBestCameraPositionForModel();
@@ -222,6 +222,6 @@ pc.script.create("camera", function (context) {
             this.entity.translateLocal(0, 0, this.distance);
         }
     };
-    
+
     return Camera;
 });
