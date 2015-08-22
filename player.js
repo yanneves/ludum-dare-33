@@ -13,6 +13,12 @@ pc.script.create('player', function (context) {
 
         // vectors
         this.thrustVec = new pc.Vec3()
+
+        // state
+        this.thrusting = false
+
+        // entities
+        this.light = null
     }
 
     Player.prototype = {
@@ -20,7 +26,7 @@ pc.script.create('player', function (context) {
             // start at reset position
             this.reset()
 
-            // entities
+            // register entities
             this.light = this.entity.findByName('Light')
         },
 
