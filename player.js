@@ -46,7 +46,9 @@ pc.script.create('player', function (context) {
             var CMD_CLOCKWISE_PRESSED = context.keyboard.isPressed(pc.input.KEY_E)
             var CMD_COUNTER_CLOCKWISE_PRESSED = context.keyboard.isPressed(pc.input.KEY_Q)
             var CMD_THRUST_PRESSED = context.keyboard.isPressed(pc.input.KEY_SPACE)
-            var CMD_RESET_PRESSED = context.keyboard.isPressed(pc.input.KEY_ENTER)
+            var CMD_RESET_PRESSED =
+                context.keyboard.isPressed(pc.input.KEY_R) ||
+                context.keyboard.isPressed(pc.input.KEY_ENTER)
 
             // rotation control
             if (CMD_FORE_PRESSED || CMD_BACK_PRESSED)
