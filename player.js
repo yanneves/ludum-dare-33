@@ -31,18 +31,32 @@ pc.script.create('player', function (context) {
         },
 
         update: function (dt) {
+            var CMD_FORE_PRESSED =
+                context.keyboard.isPressed(pc.input.KEY_W) ||
+                context.keyboard.isPressed(pc.input.KEY_UP)
             var CMD_LEFT_PRESSED =
                 context.keyboard.isPressed(pc.input.KEY_A) ||
                 context.keyboard.isPressed(pc.input.KEY_LEFT)
+            var CMD_BACK_PRESSED =
+                context.keyboard.isPressed(pc.input.KEY_S) ||
+                context.keyboard.isPressed(pc.input.KEY_DOWN)
             var CMD_RIGHT_PRESSED =
                 context.keyboard.isPressed(pc.input.KEY_D) ||
                 context.keyboard.isPressed(pc.input.KEY_RIGHT)
+            var CMD_CLOCKWISE_PRESSED = context.keyboard.isPressed(pc.input.KEY_E)
+            var CMD_COUNTER_CLOCKWISE_PRESSED = context.keyboard.isPressed(pc.input.KEY_Q)
             var CMD_THRUST_PRESSED = context.keyboard.isPressed(pc.input.KEY_SPACE)
             var CMD_RESET_PRESSED = context.keyboard.isPressed(pc.input.KEY_ENTER)
 
             // rotation control
+            if (CMD_FORE_PRESSED || CMD_BACK_PRESSED)
+                this.entity.rigidbody.applyTorqueImpulse((CMD_FORE_PRESSED ? -1 : +1) * this.torque, 0, 0)
+
             if (CMD_LEFT_PRESSED || CMD_RIGHT_PRESSED)
-                this.entity.rigidbody.applyTorqueImpulse(0, 0, (CMD_LEFT_PRESSED ? +1 : -1) * this.torque)
+                this.entity.rigidbody.applyTorqueImpulse(0, 0, (CMD_RIGHT_PRESSED ? -1 : +1) * this.torque)
+
+            if (CMD_CLOCKWISE_PRESSED || CMD_COUNTER_CLOCKWISE_PRESSED)
+                this.entity.rigidbody.applyTorqueImpulse(0, (CMD_CLOCKWISE_PRESSED ? -2 : +2) * this.torque, 0)
 
             // thrust control
             this[(CMD_THRUST_PRESSED ? 'start' : 'stop') + 'Thrust']()
@@ -66,14 +80,14 @@ pc.script.create('player', function (context) {
 
             if (!this.thrusting) {
                 this.thrusting = true
-                this.light.enabled = true
+                if (this.light) this.light.enabled = true
             }
         },
 
         stopThrust: function () {
             if (this.thrusting) {
                 this.thrusting = false
-                this.light.enabled = false
+                if (this.light) this.light.enabled = false
             }
         }
     }
